@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="logincss.css">
+        <script src="jQuery.js"></script>
+        <meta charset="UTF-8">
+<!-------------------------------------JAVASCRIPT------------------------------------->      
+        <script type="text/javascript">
+            
+            $(document).ready(()=>{
+                var i=0;
+                
+                $(".subbutton").click(function(e)
+                {                 
+                    e.preventDefault()
+                    login()
+                })
+                
+                $(".close").click(function(e)
+                {
+                    e.preventDefault()
+                    popup()        
+                })
+                
+                
+                function login(){
+                    let username, password;
+                    
+                    
+                    username = $('.username').val()
+                    password = $('.password').val()
+                    console.log(username)
+                    console.log(password)
+                    
+                    if(username=="admin" && password=="p@ssword")
+                    {
+                        window.location.href = "dashboard.html";
+                    }else{
+                        popup()
+                    }
+                }
+                
+                function popup(){
+                    
+                    if (i==0){
+                        document.getElementById("popup-alert").style.display = "block";
+                        i=1;
+                    }else{
+                        document.getElementById("popup-alert").style.display = "none";
+                        i=0;
+                    }
+ 
+                }
+                  
+                
+            })
+            
+        </script>
+<!--------------------------------------------------------------------------------->
+    </head>
+
+    <body>
+        
+            <div class="bg">
+                <img src="sprites/bg1.png">
+
+                <div class="login-container">
+                    
+                    <div class="login-container-bg"></div>
+                        <div class="logo"><img src="sprites/LOGOS/logo3.png"></div>
+                        <div class="login-label-container">
+                            <span class="login-label">Login</span>
+                        </div>
+
+                        <div class="username-label">Username</div>
+                        <div class="password-label">Password</div>
+                        <form>
+                            <div class="username-input">
+                            <input class="username" type="text" name="username">
+                            </div>
+
+                            <div class="password-input">
+                                <input class="password" type="password" name="username">
+                            </div>
+
+                            <div class="login-button-container">
+                                <input type="submit" value="Login" class="subbutton login-button">
+                            </div>
+                        </form>
+                </div> 
+                
+                <div id="popup-alert">
+                    <h4>Incorrect username and password. Please try again.</h4>
+                    
+                    <div class="close">Close</div>
+                </div>
+            </div>
+        
+
+        
+        
+        
+    </body>
+</html>

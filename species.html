@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="jQuery.js"></script>
+        <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+        <script src="moment-with-locales.js"></script>
+        <script src="chart.js"></script>
+        
+        
+        <link rel="stylesheet" href="speciescss.css">
+        <link rel="stylesheet" type="text/css" href="datatables.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        
+        <script type="text/javascript">
+            Chart.defaults.global.defaultFontColor = 'white';
+ //            species sale
+             var object1;
+
+                            $.getJSON('krustykrab_array.json', function(data1){
+                                start1(data1);
+                            });
+
+                            function start1(thing1){
+                                object1 = thing1.species_sales;
+                                console.log(object1);
+                                buildchart1(object1);
+                            }
+                            function buildchart1(thing1){
+                                var ctx = document.getElementById('speciessale').getContext('2d');
+                                var doughnut1 = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels:['Leatherback Turtle', 'Salmon', 'Seahorse', 'Coral', 'Giant Clam', 'Gray Whale', 'Sea Lion'],
+                                        datasets: [{
+//                                            label:'Species Sales',
+                                            backgroundColor: ['rgb(238,85,103)', 'rgb(251,110,83)', 'rgb(255,206,85)', 'rgb(160,212,104)', 'rgb(72,207,174)', 'rgb(79,192,232)', 'rgb(94,155,236)'],
+                                            borderColor: ['rgb(238,85,103)', 'rgb(251,110,83)', 'rgb(255,206,85)', 'rgb(160,212,104)', 'rgb(72,207,174)', 'rgb(79,192,232)', 'rgb(94,155,236)'],
+                                            data: [thing1['leatherback turtle'], thing1['salmon'], thing1['seahorse'], thing1['coral'], thing1['giant clam'], thing1['gray whale'], thing1['sea lion']]
+                                        }]
+                                    },
+                                    options: {
+                                        legend:{
+                                            display: false
+                                        }
+                                    }
+                                    
+                                });
+                            }
+            
+            
+        
+        
+        </script>
+        
+    </head>
+
+    <body>
+        <div class="species-container">
+            <div class="sidebar-container">
+                <div class="logo-container">
+                    <img src="sprites/LOGOS/logo3.png" class="logo">
+                    <img src="sprites/LOGOS/krustykrab.png" class="logo1">
+                </div>
+                
+                <div class="menu">
+                    <li class ="item">
+                        <a href="dashboard.html" class="menubtn"><i class="fas fa-home"></i>Dashboard</a>
+                    </li>
+                    
+                    <li class="item" id="layout">
+                        <a href="#layout" class="menubtn"><i class="fas fa-th-large"></i>Sort By</a>
+                        <div class="smenu">
+                            <a href="product.html">Product</a>
+                            <a href="species.html">Species</a>
+                            <a href="date.html">Date</a>
+                        </div>
+                    </li>
+                    
+                    
+                    <li class ="item">
+                        <a href="upload.html" class="menubtn"><i class="fas fa-upload"></i>Upload</a>
+                    </li>
+                    
+                    <li class ="item logout-button">
+                        <a href="loginscreen.html" class="menubtn"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                    </li>
+
+                </div>
+                
+            </div>
+            
+            <div class="main-species">
+                <div class="label">
+                    Species
+                </div>
+                
+                <div class="speciessale-container"> 
+                    <div class="speciessale-label">Species Sale</div>
+                    <canvas id="speciessale" width="700" height="250"></canvas>
+                </div>
+              
+
+            </div>
+        </div>
+    </body>
+</html>

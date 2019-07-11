@@ -1,0 +1,242 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="jQuery.js"></script>
+        <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+        <script src="moment-with-locales.js"></script>
+        <script src="chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr%22%3E"></script>
+        
+        
+        <link rel="stylesheet" href="productcss.css">
+        <link rel="stylesheet" type="text/css" href="datatables.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        
+        <script type="text/javascript">
+            
+            Chart.defaults.global.defaultFontColor = 'white';
+//        burger sales
+            var object;
+
+             $.getJSON('krustykrab_array.json', function(data){
+                start(data);
+             });
+
+                        function start(thing){
+                            object = thing.burger_sales;
+                            console.log(object);
+                            buildchart(object);
+                        }
+                        
+                        function buildchart(thing){
+                            var ctx = document.getElementById('burgersales').getContext('2d');
+                            var doughnut = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Krusty Combo', 'Krusty Deluxe', 'Krabby Pattie'],
+                                    datasets: [{
+                                        label:'Burger Sales',
+                                        backgroundColor: ['rgb(255,99,132)', 'rgb(54,162,235)', 'rgb(255,205,86)'],
+                                        borderColor: ['rgb(255,99,132)', 'rgb(54,162,235)', 'rgb(255,205,86)'],
+                                        data: [thing['Krusty Combo'], thing['Krusty Deluxe'], thing['Krabby Pattie']]
+                                    }]
+                                },
+                                    options: {
+                                        legend:{
+                                            position: 'right'
+                                        }
+                                    }
+                            });
+                        }
+            
+            //             krusty combo species
+            var object2;
+    
+                $.getJSON('krustykrab_array.json', function(data2){
+                    start2(data2);
+                });
+    
+                function start2(thing2){
+                    object2 = thing2.burger_by_species;
+                    console.log(object2);
+                    buildchart2(object2);
+                }
+                function buildchart2(thing2){
+                    var ctx = document.getElementById('krustycombospecies').getContext('2d');
+                    var doughnut2 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:['Leatherback Turtle', 'Salmon', 'Seahorse', 'Coral', 'Giant Clam', 'Gray Whale', 'Sea Lion'],
+                            datasets: [{
+                                backgroundColor: ['rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)'],
+                                borderColor: ['rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)', 'rgb(238,85,103)'],
+                                data: [thing2['Krusty Combo']['leatherback turtle'], thing2['Krusty Combo']['salmon'], thing2['Krusty Combo']['seahorse'], thing2['Krusty Combo']['coral'], thing2['Krusty Combo']['giant clam'], thing2['Krusty Combo']['gray whale'], thing2['Krusty Combo']['sea lion']]
+                            }]
+                        },
+                        options: {
+                            legend:{
+                                display: false
+                            }
+                        }
+                    });
+                }
+            
+            
+            
+//            krusty deluxe species
+                var object3;
+    
+                $.getJSON('krustykrab_array.json', function(data3){
+                    start3(data3);
+                });
+    
+                function start3(thing3){
+                    object3 = thing3.burger_by_species;
+                    console.log(object3);
+                    buildchart3(object3);
+                }
+                function buildchart3(thing3){
+                    var ctx = document.getElementById('krustydeluxespecies').getContext('2d');
+                    var doughnut3 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:['Leatherback Turtle', 'Salmon', 'Seahorse', 'Coral', 'Giant Clam', 'Gray Whale', 'Sea Lion'],
+                            datasets: [{
+                                backgroundColor: ['rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)'],
+                                borderColor: ['rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)', 'rgb(94,155,236)'],
+                                data: [thing3['Krusty Deluxe']['leatherback turtle'], thing3['Krusty Deluxe']['salmon'], thing3['Krusty Deluxe']['seahorse'], thing3['Krusty Deluxe']['coral'], thing3['Krusty Deluxe']['giant clam'], thing3['Krusty Deluxe']['gray whale'], thing3['Krusty Deluxe']['sea lion']]
+                            }]
+                        },
+                        options: {
+                            legend:{
+                                display: false
+                            }
+                        }
+                    });
+                }
+            
+//            krabby pattie species
+                var object4;
+    
+                $.getJSON('krustykrab_array.json', function(data4){
+                    start4(data4);
+                });
+    
+                function start4(thing4){
+                    object4 = thing4.burger_by_species;
+                    console.log(object4);
+                    buildchart4(object4);
+                }
+                function buildchart4(thing4){
+                    var ctx = document.getElementById('krabbypattiespecies').getContext('2d');
+                    var doughnut4 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:['Leatherback Turtle', 'Salmon', 'Seahorse', 'Coral', 'Giant Clam', 'Gray Whale', 'Sea Lion'],
+                            datasets: [{
+                                backgroundColor: ['rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)'],
+                                borderColor: ['rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)', 'rgb(255,206,85)'],
+                                data: [thing4['Krabby Pattie']['leatherback turtle'], thing4['Krabby Pattie']['salmon'], thing4['Krabby Pattie']['seahorse'], thing4['Krabby Pattie']['coral'], thing4['Krabby Pattie']['giant clam'], thing4['Krabby Pattie']['gray whale'], thing4['Krabby Pattie']['sea lion']]
+                            }]
+                        },
+                        options: {
+                            legend:{
+                                display: false
+                            }
+                        }
+                    });
+                }
+            
+            $(document).ready(()=>{
+                $(".logout-button").click(function(e)
+                {                 
+                    e.preventDefault()
+                    logout()
+                });
+                
+                $("#basicDate").flatpickr({
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    dateFormat: "Y-m-d",
+                    onChange: function(selectedDates, dateStr, instance){
+                        console.log($("#basicDate").val());
+                    }
+                });
+                         
+                function logout(){
+                    window.location.href = "loginscreen.html";
+                }
+            })
+            
+               
+        
+        
+        </script>
+        
+    </head>
+
+    <body>
+        <div class="product-container">
+            <div class="sidebar-container">
+                <div class="logo-container">
+                    <img src="sprites/LOGOS/logo3.png" class="logo">
+                    <img src="sprites/LOGOS/krustykrab.png" class="logo1">
+                </div>
+                
+                <div class="menu">
+                    <li class ="item">
+                        <a href="dashboard.html" class="menubtn"><i class="fas fa-home"></i>Dashboard</a>
+                    </li>
+                    
+                    <li class="item" id="layout">
+                        <a href="#layout" class="menubtn"><i class="fas fa-th-large"></i>Sort By</a>
+                        <div class="smenu">
+                            <a href="product.html">Product</a>
+                            <a href="species.html">Species</a>
+                            <a href="date.html">Date</a>
+                        </div>
+                    </li>
+                    
+                    
+                    <li class ="item">
+                        <a href="upload.html" class="menubtn"><i class="fas fa-upload"></i>Upload</a>
+                    </li>
+                    
+                    <li class ="item logout-button">
+                        <a href="loginscreen.html" class="menubtn"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                    </li>
+
+                </div>
+                
+            </div>
+            
+            <div class="main-product">
+                <div class="label">
+                    Product
+                </div>
+                
+                <div class="burgersales-container">
+                    <div class="sales-label">Burger Sales</div>
+                    <canvas id = "burgersales" width="450" height="200"></canvas>
+                </div>
+                
+                <div class="krustycombospecies-container">
+                    <div class="krustycombospecies-label">Overall Krusty Combo Sales</div>
+                    <canvas id="krustycombospecies" width="740" height="350"></canvas>
+                </div>
+                
+                <div class="krustydeluxespecies-container">
+                    <div class="krustydeluxespecies-label">Overall Krusty Deluxe Sales</div>
+                    <canvas id="krustydeluxespecies" width="740" height="350"></canvas>
+                </div>
+                
+                <div class="krabbypattiespecies-container">
+                    <div class="krabbypattiespecies-label">Overall Krabby Pattie Sales</div>
+                    <canvas id="krabbypattiespecies" width="740" height="350"></canvas>
+                </div>
+              
+
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="datatables.css">
+        <script src= "jQuery.js"></script>
+        <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+    </head>
+
+    <body>
+        <div>  
+            <h1 align="center">Krusty Krab</h1><br/>  
+            <h3 align="center">Sales</h3><br />  
+            <table id="data-table">  
+                <thead>  
+                    <tr>  
+                        <th>DateTime</th>  
+                        <th>Burger</th>  
+                        <th>Species</th>  
+                    </tr>  
+                </thead>  
+            </table>  
+        </div> 
+        
+        <script>
+            $(document).ready(function(){  
+                 $('#data-table').DataTable({  
+                    "ajax" :{
+                        "url" : "krustykrab_array.json",
+                        "dataSrc" : "sales"
+                    },
+                    "columns"     :     [  
+                        {     "data"     :     "datetime"     },  
+                        {     "data"     :     "burger"},  
+                        {     "data"     :     "species"}  
+                    ]  
+                });  
+            }); 
+        </script>
+    </body>
+</html>

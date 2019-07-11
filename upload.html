@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="jQuery.js"></script>
+        <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+        <script type="text/javascript" charset="utf8" src="flatpickr.js"></script>
+        <script src="moment-with-locales.js"></script>
+        <script src="chart.js"></script>
+<!--        <script src="https://cdn.jsdelivr.net/npm/flatpickr%22%3E"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+        <link rel="stylesheet" href="uploadcss.css">
+        <link rel="stylesheet" type="text/css" href="datatables.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        
+
+<!-------------------------------------JAVASCRIPT------------------------------------->
+        <script type="text/javascript">
+//        burger sales
+            var object;
+
+             $.getJSON('krustykrab_array.json', function(data){
+                start(data);
+             });
+            
+            function loadFile() {
+                var input, file, fr;
+
+                if (typeof window.FileReader !== 'function') {
+                  alert("The file API isn't supported on this browser yet.");
+                  return;
+                }
+
+                input = document.getElementById('uploadInput');
+                if (!input) {
+                  alert("Couldn't find the fileinput element.");
+                }
+                else if (!input.files) {
+                  alert("This browser doesn't seem to support the `files` property of file inputs.");
+                }
+                else if (!input.files[0]) {
+                  alert("Please select a file before clicking 'Load'");
+                }
+                else {
+                  file = input.files[0];
+                  fr = new FileReader();
+                  fr.onload = receivedText;
+                  fr.readAsText(file);
+                }
+
+                function receivedText(e) {
+                  let lines = e.target.result;
+                  var newArr = JSON.parse(lines); 
+                }
+          }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
+            $(document).ready(()=>{
+                $(".logout-button").click(function(e)
+                {                 
+                    e.preventDefault()
+                    logout()
+                });
+                
+                $("#basicDate").flatpickr({
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    dateFormat: "Y-m-d",
+                    onChange: function(selectedDates, dateStr, instance){
+                        console.log($("#basicDate").val());
+                    }
+                });
+                         
+                function logout(){
+                    window.location.href = "loginscreen.html";
+                }
+            })
+            
+            
+
+        </script>
+<!--------------------------------------------------------------------------------->
+    </head>
+    
+    <body>
+        <div class="dashboard-container">
+            <div class="sidebar-container">
+                <div class="logo-container">
+                    <img src="sprites/LOGOS/logo3.png" class="logo">
+                    <img src="sprites/LOGOS/krustykrab.png" class="logo1">
+                </div>
+                
+                <div class="menu">
+                    <li class ="item">
+                        <a href="dashboard.html" class="menubtn"><i class="fas fa-home"></i>Dashboard</a>
+                    </li>
+                    
+                    <li class="item" id="layout">
+                        <a href="#layout" class="menubtn"><i class="fas fa-th-large"></i>Sort By</a>
+                        <div class="smenu">
+                            <a href="product.html">Product</a>
+                            <a href="species.html">Species</a>
+                            <a href="date.html">Date</a>
+                        </div>
+                    </li>
+                    
+                    
+                    <li class ="item">
+                        <a href="upload.html" class="menubtn"><i class="fas fa-upload"></i>Upload</a>
+                    </li>
+                    
+                    <li class ="item logout-button">
+                        <a href="loginscreen.html" class="menubtn"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                    </li>
+
+                </div>
+                
+            </div>
+            
+            <div class="main-dashboard">
+                <div class="label">
+                    Upload
+                </div>
+                
+              
+                <div class="upload-container">
+                    <div class="upload-label-container">
+                        <div class="upload-label">Upload a new JSON File here.</div>
+                        <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+                          
+                             <input type='file' id='uploadInput'>
+                             <input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
+            
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+          
+    </body>
+</html>

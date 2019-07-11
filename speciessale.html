@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="jQuery.js"></script>
+        <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+        <script type="text/javascript" charset="utf8" src="flatpickr.js"></script>
+        <script src="moment-with-locales.js"></script>
+        <script src="chart.js"></script>
+<!--        <script src="https://cdn.jsdelivr.net/npm/flatpickr%22%3E"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+        <link rel="stylesheet" href="dashboardcss.css">
+        <link rel="stylesheet" type="text/css" href="datatables.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        
+        <script>
+            var selectedDay;
+            var speciesChart = null;
+            
+            $.getJSON('krustykrab_array.json', function(data){
+                simula(data);
+             });
+            
+            function simula(datos){
+                var i = 0, j =0, test=0;
+                var tally = [], turtle = [], salmon = [], seahorse = [], coral =[], clam =[], whale=[], sLion=[], color1 =[], color2=[], color3 =[];
+                var dLabel = [], tLabel = [];
+                obj = datos.sales;
+
+                for(i = 0; i<50; i++){
+                    tally[i] = 0;
+                    turtle[i] = 0;
+                    salmon[i] = 0;
+                    seahorse[i] = 0;
+                    coral[i] = 0;
+                    clam[i]=0;
+                    whale[i]=0;
+                    sLion[i]=0;
+                    color1[i] = 'rgb(255,99,132)';
+                    color2[i] = 'rgb(54,162,235)';
+                    color3[i] ='rgb(255,205,86)';
+                }
+                
+                var now = moment(selectedDay);
+                console.log(now);
+                console.log(now.format("YYYY-MM-DD"));
+               
+                console.log(obj.length);
+                var oldDate = now, newDate;
+
+                for(i = 0; i < obj.length; i++){
+                        newDate = moment(obj[i].datetime);
+                        if(moment(oldDate).isSame(newDate, 'day')){
+//                            if(moment(oldDate).isSame(newDate, 'hour')){
+                                tally[j]++;
+                                if(obj[i].species == "leatherback turtle"){
+                                    turtle[j]++;
+                                }
+                                if(obj[i].species == "salmon"){
+                                    salmon[j]++;
+                                }
+                                if(obj[i].species == "seahorse"){
+                                    seahorse[j]++;
+                                }
+                                if(obj[i].species == "coral"){
+                                    coral[j]++;
+                                }
+                                if(obj[i].species == "giant clam"){
+                                    clam[j]++;
+                                }
+                                if(obj[i].species == "gray whale"){
+                                    whale[j]++;
+                                }
+                                if(obj[i].species == "sea lion"){
+                                    sLion[j]++;
+                                }
+                            }
+//                            else{
+//                                j++;
+//                                oldDate = newDate;
+//                                tally[j]++;
+//                                dLabel[j] = oldDate.toString().slice(16,18);
+//                                if(obj[i].burger == "Krusty Combo"){
+//                                    kCombo[j]++;
+//                                }
+//                                if(obj[i].burger == "Krusty Deluxe"){
+//                                    kDeluxe[j]++;
+//                                }
+//                                if(obj[i].burger == "Krabby Pattie"){
+//                                    kPattie[j]++;
+//                                }
+//                            }
+//                        }
+            }
+
+//                console.log(tally);
+//                console.log(dLabel);
+//                console.log(kCombo);
+
+                if(speciesChart!=null){
+                    speciesChart.destroy();
+                }
+                
+                var ctx = document.getElementById('hourChart').getContext('2d');
+                speciesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dLabel,
+//                    ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"],
+                    datasets: [{
+                    label: 'Leatherback Turtle',
+                    data: turtle,
+                    backgroundColor: color1,
+                    borderColor: color1,
+                    borderWidth: 1
+                    },
+                    {
+                    label: 'Salmon',
+                    data: salmon,
+                    backgroundColor: color2,
+                    borderColor: color2,
+                    borderWidth: 1                        
+                    },
+                    {
+                    label: 'Seahorse',
+                    data: seahorse,
+                    backgroundColor: color3,
+                    borderColor: color3,
+                    borderWidth: 1
+                    },
+                    {
+                    label: 'Coral',
+                    data: coral,
+                    backgroundColor: color1,
+                    borderColor: color1,
+                    borderWidth: 1
+                    },
+                              {
+                    label: 'Giant Clam',
+                    data: clam,
+                    backgroundColor: color2,
+                    borderColor: color2,
+                    borderWidth: 1
+                    },
+                              {
+                    label: 'Gray Whale',
+                    data: whale,
+                    backgroundColor: color3,
+                    borderColor: color3,
+                    borderWidth: 1
+                    },
+                              {
+                    label: 'Sea Lion',
+                    data: sLion,
+                    backgroundColor: color1,
+                    borderColor: color1,
+                    borderWidth: 1
+                    }]
+                }
+                });
+            }
+            
+            $(document).ready(()=>{
+                
+                $("#basicDate").flatpickr({
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    dateFormat: "Y-m-d",
+                    onChange: function(selectedDates, dateStr, instance){
+                        //console.log($("#basicDate").val())
+                        selectedDay = $("#basicDate").val()
+                        console.log(selectedDay)
+                        $.getJSON('krustykrab_array.json', function(data){
+                            simula(data);
+                         });
+                    }
+                });
+            });
+                              
+        </script>
+    </head>
+    
+    <body>
+        <div class="datepicker">
+                    Search By Date
+                    <input type="text" class="datepicker-input" id="basicDate" placeholder="Please select Date Time" data-input>
+        </div>
+        
+        <div class="saleperhour-container">
+                    <div class="salesperhour-label">Species Sale</div>
+                    <canvas id = "hourChart" width="740" height="225"></canvas>
+        </div>
+    </body>
+</html>
